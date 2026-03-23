@@ -1,0 +1,17 @@
+pwd -? present working directory
+ls -? list files
+cd -? change directory
+mkdir -? make directory
+rmdir -? remove directory
+touch -? create file
+rm -? remove file
+cat -? concatenate files
+echo -? echo text
+man -? manual pages
+clear -? clear screen
+exit -? exit terminal
+cd .. -? go back to parent directory
+
+to serve the backend
+npm run dev
+
