@@ -40,13 +40,18 @@ export const register = async (req, res) => {
             phoneNumber,
             password: hashedPassword,
             role,
+            isApproved: role === "student" ? true : false,
             profile: {
                 profilePhoto
             }
         });
 
+        const message = role === "recruiter"
+            ? "Account created! Please wait for admin approval before posting jobs."
+            : "Account created successfully"
+
         return res.status(201).json({
-            message: "Account created successfully",
+            message,
             success: true
         });
 
@@ -94,6 +99,14 @@ export const login = async (req, res) => {
             });
         }
 
+        // Check if recruiter is approved
+        if (role === "recruiter" && !user.isApproved) {
+            return res.status(403).json({
+                message: "Your recruiter account is pending admin approval. Please wait.",
+                success: false
+            });
+        }
+
         const tokenData = {
             userId: user._id,
             role: user.role
@@ -109,6 +122,7 @@ export const login = async (req, res) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             role: user.role,
+            isApproved: user.isApproved,
             profile: user.profile
         };
 
@@ -199,6 +213,7 @@ export const updateProfile = async (req, res) => {
                 email: user.email,
                 phoneNumber: user.phoneNumber,
                 role: user.role,
+                isApproved: user.isApproved,
                 profile: user.profile
             },
             success: true
