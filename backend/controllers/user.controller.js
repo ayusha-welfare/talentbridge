@@ -99,14 +99,6 @@ export const login = async (req, res) => {
             });
         }
 
-        // Check if recruiter is approved
-        if (role === "recruiter" && !user.isApproved) {
-            return res.status(403).json({
-                message: "Your recruiter account is pending admin approval. Please wait.",
-                success: false
-            });
-        }
-
         const tokenData = {
             userId: user._id,
             role: user.role
