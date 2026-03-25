@@ -23,15 +23,23 @@ const AdminDashboard = () => {
 
     const fetchData = async () => {
         try {
-            const [pendingRes, approvedRes, studentsRes] = await Promise.all([
-                axios.get(`${USER_API_END_POINT}/admin/recruiters/pending`, { withCredentials: true }),
-                axios.get(`${USER_API_END_POINT}/admin/recruiters/approved`, { withCredentials: true }),
-                axios.get(`${USER_API_END_POINT}/admin/students`, { withCredentials: true })
-            ])
+            const pendingRes = await axios.get(
+                `${USER_API_END_POINT}/admin/recruiters/pending`,
+                { withCredentials: true }
+            )
+            const approvedRes = await axios.get(
+                `${USER_API_END_POINT}/admin/recruiters/approved`,
+                { withCredentials: true }
+            )
+            const studentsRes = await axios.get(
+                `${USER_API_END_POINT}/admin/students`,
+                { withCredentials: true }
+            )
             if (pendingRes.data.success) setPendingRecruiters(pendingRes.data.recruiters)
             if (approvedRes.data.success) setApprovedRecruiters(approvedRes.data.recruiters)
             if (studentsRes.data.success) setStudents(studentsRes.data.students)
         } catch (error) {
+            console.log(error)
             toast.error('Failed to fetch data')
         }
     }
