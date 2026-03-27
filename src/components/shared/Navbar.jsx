@@ -78,6 +78,12 @@ const Navbar = () => {
                                 style={{ color: '#374151' }}>
                                 Applied Jobs
                             </Link>
+
+                            <Link to="/profile"
+                                className="font-medium transition-colors hover:opacity-80"
+                                style={{ color: '#374151' }}>
+                                Profile
+                            </Link>
                         </>
                     )}
                 </div>
